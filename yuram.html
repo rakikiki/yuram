@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ゆめいろユラムシミュレータ</title>
+<script type="text/javascript" src="yuram.js"></script>
+<link rel="stylesheet" href="yuram.css" type="text/css" />
+
+</head>
+<body>
+  <table id="nextTumo">
+    <tr>
+      <td id="n0_0"><div></div></td><td id="n0_1"><div></div></td>
+      <td id="n1_0"><div></div></td><td id="n1_1"><div></div></td>
+      <td id="n2_0"><div></div></td><td id="n2_1"><div></div></td>
+      <td id="n3_0"><div></div></td><td id="n3_1"><div></div></td>
+      <td id="n4_0"><div></div></td><td id="n4_1"><div></div></td>
+    </tr>
+  </table>
+  <div class="container">
+    <div id="leftDiv">
+      <table id="tumo">
+        <tr><td id="t_2_0"><div></div></td><td id="t_2_1"><div></div></td><td id="t_2_2"><div></div></td><td id="t_2_3"><div></div></td><td id="t_2_4"><div></div></td><td id="t_2_5"><div></div></td></tr>
+        <tr><td id="t_1_0"><div></div></td><td id="t_1_1"><div></div></td><td id="t_1_2"><div></div></td><td id="t_1_3"><div></div></td><td id="t_1_4"><div></div></td><td id="t_1_5"><div></div></td></tr>
+        <tr><td id="t_0_0"><div></div></td><td id="t_0_1"><div></div></td><td id="t_0_2"><div></div></td><td id="t_0_3"><div></div></td><td id="t_0_4"><div></div></td><td id="t_0_5"><div></div></td></tr>
+      </table>
+      <table id="field">
+        <tr><td id="f_7_0"><div></div></td><td id="f_7_1"><div></div></td><td id="f_7_2"><div></div></td><td id="f_7_3"><div></div></td><td id="f_7_4"><div></div></td><td id="f_7_5"><div></div></td></tr>
+        <tr><td id="f_6_0"><div></div></td><td id="f_6_1"><div></div></td><td id="f_6_2"><div></div></td><td id="f_6_3"><div></div></td><td id="f_6_4"><div></div></td><td id="f_6_5"><div></div></td></tr>
+        <tr><td id="f_5_0"><div></div></td><td id="f_5_1"><div></div></td><td id="f_5_2"><div></div></td><td id="f_5_3"><div></div></td><td id="f_5_4"><div></div></td><td id="f_5_5"><div></div></td></tr>
+        <tr class="half"><td id="f_4_0"><div></div></td><td id="f_4_1"><div></div></td><td id="f_4_2"><div></div></td><td id="f_4_3"><div></div></td><td id="f_4_4"><div></div></td><td id="f_4_5"><div></div></td></tr>
+        <tr><td id="f_3_0"><div></div></td><td id="f_3_1"><div></div></td><td id="f_3_2"><div></div></td><td id="f_3_3"><div></div></td><td id="f_3_4"><div></div></td><td id="f_3_5"><div></div></td></tr>
+        <tr><td id="f_2_0"><div></div></td><td id="f_2_1"><div></div></td><td id="f_2_2"><div></div></td><td id="f_2_3"><div></div></td><td id="f_2_4"><div></div></td><td id="f_2_5"><div></div></td></tr>
+        <tr><td id="f_1_0"><div></div></td><td id="f_1_1"><div></div></td><td id="f_1_2"><div></div></td><td id="f_1_3"><div></div></td><td id="f_1_4"><div></div></td><td id="f_1_5"><div></div></td></tr>
+        <tr><td id="f_0_0"><div></div></td><td id="f_0_1"><div></div></td><td id="f_0_2"><div></div></td><td id="f_0_3"><div></div></td><td id="f_0_4"><div></div></td><td id="f_0_5"><div></div></td></tr>
+      </table>
+    </div>
+    <div id="centerDiv">
+      <div id="editKumoDiv">
+        <table id="editKumo">
+          <tr>
+            <td id="editKumoRed" class="red kumo"><div></div></td>
+            <td id="editKumoYellow" class="yellow kumo"><div></div></td>
+            <td id="editKumoGreen" class="green kumo"><div></div></td>
+            <td id="editKumoBlue" class="blue kumo"><div></div></td>
+            <td id="editKumoDelete" class="white kumo"><div></div></td>
+          </tr>
+        </table>
+      </div>
+      <div id="charaDiv">
+        <label for="chara">ツモパターン</label>
+        <select id="chara">
+          <option value="normal">通常</option>
+          <option value="yuna">ユナ（未実装）</option>
+          <option value="geela">ジーラ</option>
+        </select>
+      </div>
+      <div id="yakuDiv">
+        <div id="totalScore"></div>
+        <div id="starPoint"></div>
+        <div id="shapeCount"></div>
+        <div id="minusScore"></div>
+        <div id="yakuList"></div>
+      </div>
+    </div>
+    <div id="rightDiv">
+      <div>
+        <h2 style="font-size:normal; line-height:1.5em;">操作方法：</h2>
+        <p>
+          Zキー: 左回転<br>
+          Xキー: 右回転<br>
+          矢印←→: ツモを左右に移動<br>
+          矢印↑: ツモをドロップ<br>
+          Rキー: リセット
+        </p>
+        
+        <p>
+          右上のリストから色を選んでフィールドをクリックするとフィールドを編集できます。<br>
+          ゆめぐもを消したい場合は一番右の白を選択してクリックしてください。
+        </p>
+      </div>
+      <div id="outUrlDiv">
+        <input type="button" id="outUrlButton" value="URL出力">
+        <input type="text" id="url" size="50">
+      </div>
+      <div style="margin-top:20px;">
+        作成者: <a href="https://twitter.com/rakikiki">@rakikiki (Twitter)</a>    
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

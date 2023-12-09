@@ -1,0 +1,185 @@
+body {
+  font-size: small;
+}
+table#tumo {
+  background-color: silver;
+  border-bottom-width: 1px;
+}
+table#tumo > tbody > tr > td > div {
+  border-radius: 50%;
+}
+table#nextTumo {
+  border-width: 0;
+  margin-left: 90px;
+}
+table#nextTumo > tbody > tr > td {
+  border-width: 0px;
+}
+table#nextTumo > tbody > tr > td > div {
+  border-radius: 50%;
+}
+table {
+  border-collapse: collapse;
+  border: 5px solid black;
+}
+table#field {
+  width: 250px;
+  height: 330px;
+}
+table > tbody > tr > td {
+  border: 1px dashed lightgray;
+  width: 40px;
+  height: 40px;
+}
+td#n0_1 {
+  width: 70px;
+}
+td#n1_1 {
+  width: 70px;
+}
+td#n2_1 {
+  width: 70px;
+}
+td {
+  box-sizing: border-box;
+}
+td > div {
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
+}
+td.kumo > div {
+  border-radius: 50%;
+  border-width: 1px;
+}
+td.block > div {
+  width: 40px;
+  height: 40px;
+  border-width: 1px;
+}
+td.green.block {
+  background-color: green;
+}
+td.red.block {
+  background-color: orangered;
+}
+td.blue.block {
+  background-color: aqua;
+}
+td.yellow.block {
+  background-color: gold;
+}
+
+td.red > div {
+  background-color: orangered;
+  border-color: darkred;
+}
+td.green > div {
+  background-color: green;
+  border-color: darkgreen;
+}
+td.blue > div {
+  background-color: aqua;
+  border-color: darkblue;
+}
+td.yellow > div {
+  background-color: gold;
+  border-color: goldenrod;
+}
+td.gray > div {
+  border-color: black;
+  background-color: gray;
+}
+td.white > div {
+  border-color: gray;
+  background-color: white;
+}
+td.border-left {
+  border-left: 1px solid black !important;
+}
+td.border-right {
+  border-right: 1px solid black !important;
+}
+td.border-top {
+  border-top: 1px solid black !important;
+}
+td.border-bottom {
+  border-bottom: 1px solid black !important;
+}
+table#editKumo {
+  border: 1px solid black;
+}
+table#editKumo > tbody > tr > td {
+  cursor: pointer;
+}
+td.selected {
+  background-color: black;
+  box-sizing: border-box;
+}
+div.container {
+  display: flex;
+}
+div#leftDiv {
+  width: 280px;
+}
+div#centerDiv {
+  width: 320px;
+  margin-top: 20px;
+}
+div#rightDiv {
+  margin-top: 20px;
+}
+div#editKumo {
+  display: block;
+  top: 100px;
+  height: 40px;
+}
+div#charaDiv {
+  margin-top: 10px;
+}
+div#yakuDiv {
+  display: block;
+  margin-top: 10px;
+}
+div#yakuList {
+  margin-top: 20px;
+}
+div#yakuList > div {
+  width: 300px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding-left: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  background-color: #eeeeff;
+}
+div.yakuStar {
+  display: inline-block;
+  width: 50px;
+}
+div#totalScore, div#shapeCount, div#starPoint, div#minusScore {
+  width: 300px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding-left: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  background-color: #eeeeee;
+}
+div#shapeCount, div#starPoint, div#minusScore {
+  width: 280px;
+  padding-left: 25px;
+}
+td.block {
+  border-width: 1px;
+  box-sizing: border-box;
+  border-color: rgba(0, 0, 0, 0);
+}
+div#outUrlDiv {
+  margin-top: 10px;
+}
+span.diff {
+  margin-left: 15px;
+  font-size: small;
+  color: gray;
+}
