@@ -1257,11 +1257,16 @@ function init() {
   var chara = document.getElementById('chara')
   chara.addEventListener('change', function(event) {
     resetAllState()
+    chara.blur()
   })
 
   var outUrlButton = document.getElementById('outUrlButton')
   outUrlButton.addEventListener('click', function(event) {
     createUrlParam()
+  })
+  var urlInput = document.getElementById('url')
+  urlInput.addEventListener('click', function(event) {
+    urlInput.select()
   })
   
   // キー入力
