@@ -123,7 +123,7 @@ div#leftDiv {
   width: 280px;
 }
 div#centerDiv {
-  width: 320px;
+  width: 280px;
   margin-top: 20px;
 }
 div#rightDiv {
@@ -145,7 +145,7 @@ div#yakuList {
   margin-top: 20px;
 }
 div#yakuList > div {
-  width: 300px;
+  width: 260px;
   margin-top: 4px;
   margin-bottom: 4px;
   padding-left: 5px;
@@ -158,7 +158,7 @@ div.yakuStar {
   width: 50px;
 }
 div#totalScore, div#shapeCount, div#starPoint, div#minusScore {
-  width: 300px;
+  width: 260px;
   margin-top: 4px;
   margin-bottom: 4px;
   padding-left: 5px;
@@ -167,7 +167,7 @@ div#totalScore, div#shapeCount, div#starPoint, div#minusScore {
   background-color: #eeeeee;
 }
 div#shapeCount, div#starPoint, div#minusScore {
-  width: 280px;
+  width: 240px;
   padding-left: 25px;
 }
 td.block {
