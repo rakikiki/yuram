@@ -1228,15 +1228,13 @@ function parseParam(param) {
     let color = strToColorCode[splitBlockParam[idx++]]
     let positions = splitBlockParam[idx++].match(/\d{1,2}/g)
     for (let i = 0; i < positions.length; i++) {
-      const x = positions[i].substring(0, 1)
-      const y = positions[i].substring(1, 2)
+      const x = parseInt(positions[i].substring(0, 1))
+      const y = parseInt(positions[i].substring(1, 2))
       field[x][y].color = color
       field[x][y].state = STATE_KUMO
-      console.log('put field['+x+']['+y+']:', field[x][y].color, field[x][y].state)
-
     }
     // 配置したら図形判定
-    createShape([positions[0].substring(0, 1), positions[0].substring(1, 2)], null)
+    createShape([parseInt(positions[0].substring(0, 1)), parseInt(positions[0].substring(1, 2))], null)
   }
 }
 
