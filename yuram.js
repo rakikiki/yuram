@@ -956,7 +956,7 @@ function showYakuList() {
           connectType = ' (S)'
           break
         case SHAPE_TYPE_T:
-          connectType - ' (T)'
+          connectType = ' (T)'
           break
         default:
           connectType = ' (' + connectType + ')'
