@@ -1,6 +1,14 @@
 body {
   font-size: small;
 }
+table#scoreTable {
+  border: 1px solid black;
+}
+table#scoreTable > thead > tr > th, table#scoreTable > tbody > tr > td {
+  text-align: right;
+  border: 1px solid black;
+  height: 1.2em;
+}
 table#tumo {
   background-color: silver;
   border-bottom-width: 1px;
@@ -38,6 +46,12 @@ td#n1_1 {
   width: 70px;
 }
 td#n2_1 {
+  width: 70px;
+}
+td#n3_1 {
+  width: 70px;
+}
+td#n4_1 {
   width: 70px;
 }
 td {
@@ -157,6 +171,9 @@ div.yakuStar {
   display: inline-block;
   width: 50px;
 }
+div#yakuList > div.newYaku {
+  background-color: #eeee66;
+}
 div#totalScore, div#shapeCount, div#starPoint, div#minusScore {
   width: 260px;
   margin-top: 4px;
@@ -182,4 +199,10 @@ span.diff {
   margin-left: 15px;
   font-size: small;
   color: gray;
+}
+
+label.optionLabel {
+  margin: 4px;
+  display: inline-block;
+  width: 80px;
 }
