@@ -1,11 +1,14 @@
 // TODO:
 // 初期地形
+// ノエラ (ツモ5個見せる)
+// ユナちゃん (ツモパターン調べて実装する)
+// 
 
 // フィールドの高さと幅
 const HEIGHT = 8
 const WIDTH = 6
 const TUMO_HEIGHT = 3
-// ツモの向き(軸から見たもう一つのゆめぐもの向き)
+// ツモの向き (軸から見たもう一つのゆめぐもの向き)
 const TUMO_LEFT = 0
 const TUMO_UPPER = 1
 const TUMO_RIGHT = 2
@@ -112,10 +115,10 @@ let tumoPair = []
 let tumoArray = []
 // 現在のツモの位置
 let currentTumoNo = 0
-// 図形番号
+// 図形番号 (図形成立時に1ずつ加算)
 let currentShapeNo = 0
 // 作成済の図形リスト
-// 4つのブロックの位置と、図形の形状
+// 4つのブロックの位置と、図形の形状、色、図形番号
 // {
 //   'positions': [0,0],[0,1],[0,2],[0,3]
 //   'shapeType': 1,
@@ -123,8 +126,7 @@ let currentShapeNo = 0
 //   'shapeNo': 1
 // }
 let shapeList = []
-
-// ゴミの図形リスト（編集機能用）
+// ゴミの図形リスト (編集機能用)
 // {
 //   'positions: [...],
 //   'color': 1
@@ -134,8 +136,8 @@ let gomiList = []
 // フィールドの情報
 // {
 //   color: 1,
-//   state: kumo,
-//   shapeNo: 1 // 0:図形でない,  1以上:図形No.(作成順に1ずつ加算),  -1:5個以上の接続
+//   state: 1,
+//   shapeNo: 1 // 0:図形でない,  1以上:図形番号(作成順に1ずつ加算),  -1:5個以上の接続
 //   shapeType: 1 // 1:I,  2:O,  3:L,  4:S,  5:T
 // }
 let field = []
@@ -157,16 +159,7 @@ function createTumoPattern(pattern) {
   tumoArray = []
   const seed = Math.floor((Math.random() * MAX_SEED))
   const myRandom = customRandom(seed)
-  if (pattern === 'normal' || pattern === 'yuna') {
-    // 通常は全色25％ずつ
-    // ユナちゃんのパターンは知らないので未実装
-    for (let i = 0; i < MAX_TUMO_NUM; i++) {
-      var jikuColor = Math.floor(myRandom() * 4) + 1
-      var pairColor = Math.floor(myRandom() * 4) + 1
-
-      tumoArray.push([jikuColor, pairColor])
-    } 
-  } else if (pattern === 'geela') {
+  if (pattern === 'geela') {
     // 詳しく知らないがジーラは青が40％、他20％らしい
     for (let i = 0; i <MAX_TUMO_NUM; i++) {
       var r1 = myRandom()
@@ -193,6 +186,15 @@ function createTumoPattern(pattern) {
       }
       tumoArray.push([jikuColor, pairColor])
     }
+  } else  {
+    // 通常は全色25％ずつ
+    // ユナちゃんのパターンは知らないので未実装
+    for (let i = 0; i < MAX_TUMO_NUM; i++) {
+      var jikuColor = Math.floor(myRandom() * 4) + 1
+      var pairColor = Math.floor(myRandom() * 4) + 1
+
+      tumoArray.push([jikuColor, pairColor])
+    } 
   }
 }
 
@@ -305,7 +307,7 @@ function createShape(cell1, cell2) {
     var row = cell1[0]
     var col = cell1[1]
 
-    // くもじゃない場合何もしない（編集機能用）
+    // くもじゃない場合何もしない (編集機能用)
     if (field[row][col].state !== STATE_KUMO) {
       return
     }
@@ -319,7 +321,12 @@ function createShape(cell1, cell2) {
       // 4つ繋がったら図形化する
       var newShapeNo = ++currentShapeNo
       var shapeType = identifyShape(results)
-      shapeList.push({'positions':results, 'shapeType': shapeType, 'color':field[row][col].color, 'shapeNo': newShapeNo})
+      shapeList.push({
+        'positions':results, 
+        'shapeType': shapeType, 
+        'color':field[row][col].color, 
+        'shapeNo': newShapeNo
+      })
       for (let i = 0; i < results.length; i++) {
         field[results[i][0]][results[i][1]].state = STATE_BLOCK
         field[results[i][0]][results[i][1]].shapeNo = newShapeNo
@@ -705,7 +712,7 @@ function isAreaFilledWithShape(search_height, search_width, checkShapeType) {
         const values = Object.values(counts)
         if (values.length === shape_num && values.every(count => count === 4)) {
           if (checkShapeType === 1) {
-            // 図形の形状がすべて同じかチェックする（セイムスクエア用）
+            // 図形の形状がすべて同じかチェックする (セイムスクエア用)
             let firstShapeType = shapeTypeList[0]
             let isSameSquare = true
             for (let x = 1; x < shapeTypeList.length; x++) {
@@ -718,7 +725,7 @@ function isAreaFilledWithShape(search_height, search_width, checkShapeType) {
               return true
             }
           } else if (checkShapeType === 2) {
-            // 図形の形状が一つでも異なることをチェックする（スクエア4用）
+            // 図形の形状が一つでも異なることをチェックする (スクエア4用)
             let firstShapeType = shapeTypeList[0]
             for (let x = 1; x < shapeTypeList.length; x++) {
               if (shapeTypeList[x] !== firstShapeType) {
@@ -911,17 +918,24 @@ function showTumoField() {
 }
 
 // ネクスト欄を秒がする
-function showNextField(chara) {
+function showNextField() {
   var len = 3
-  if (chara === "noera") {
+  const chara = document.getElementById('chara')
+  const val = chara.options[chara.selectedIndex].value
+  if (val === "noera") {
     len = 5
   }
-  for (let i = 0; i < len; i++) {
+  for (let i = 0; i < 5; i++) {
     var nextTumo = tumoArray[currentTumoNo + 1 + i]
     var jikuElm = document.getElementById("n" + i + "_0")
     var pairElm = document.getElementById("n" + i + "_1")
     jikuElm.classList.remove(...jikuElm.classList)
     pairElm.classList.remove(...pairElm.classList)
+  }
+  for (let i = 0; i < len; i++) {
+    var nextTumo = tumoArray[currentTumoNo + 1 + i]
+    var jikuElm = document.getElementById("n" + i + "_0")
+    var pairElm = document.getElementById("n" + i + "_1")
     jikuElm.classList.add(getColorClassName(nextTumo[0]))
     pairElm.classList.add(getColorClassName(nextTumo[1]))
   }
@@ -930,13 +944,12 @@ function showNextField(chara) {
 function showYakuList() {
   // 役リストの更新
   let newYakuList = checkYaku()
-  yakuList = newYakuList
   let addHtml = ''
 
   let tmpStarPoint = 0
   let yakuListForDisp = []
-  for (let i = 0; i < yakuList.length; i++) {
-    let yaku = yakuList[i]
+  for (let i = 0; i < newYakuList.length; i++) {
+    let yaku = newYakuList[i]
     let connectType = ''
     // コネクトシェイプおよびコネクトカラーは種別が分かるように、末尾に色or形状の情報が追加されている
     if (yaku.startsWith('connectShape')) {
@@ -985,21 +998,36 @@ function showYakuList() {
     const dispName = yakuName[yaku] + connectType
     tmpStarPoint += yakuStar
     // 後でソートするため、いったんリストに入れる
-    yakuListForDisp.push({'name': dispName, 'score': yakuStar})
+    yakuListForDisp.push({'name': dispName, 'yaku': newYakuList[i], 'score': yakuStar})
   }
   // スコアの高い順にソート
   yakuListForDisp.sort((a, b) => b.score - a.score)
   for (let i = 0; i < yakuListForDisp.length; i++) {
-    addHtml += '<div><div class="yakuStar">☆' + yakuListForDisp[i]['score'] + '</div> ' + yakuListForDisp[i]['name'] + '</div>'
+    if (yakuList.includes(yakuListForDisp[i]['yaku'])) {
+      addHtml += '<div>'
+    } else {
+      addHtml += '<div class="newYaku">'
+    }
+    addHtml += '<div class="yakuStar">☆' + yakuListForDisp[i]['score'] + '</div> ' + yakuListForDisp[i]['name'] + '</div>'
   }
   document.getElementById('yakuList').innerHTML = addHtml
   // ついでに星数の更新
   starPoint = tmpStarPoint
+
+  yakuList = newYakuList
 }
 
 // 得点の表示
 function showScore() {
+  let initShapeNum = document.getElementById('initShapeNum')
+  const initShapeNumVal = initShapeNum.options[initShapeNum.selectedIndex].value
   let shapeLen = shapeList.length
+  console.log('initShapeNum:', initShapeNumVal)
+  if (shapeLen <= initShapeNumVal) {
+    shapeLen = 0
+  } else {
+    shapeLen = shapeLen - initShapeNumVal
+  }
   // 得点は 図形の数*1000 + ☆^2*150
   const totalScore = Math.floor(shapeLen * 1000 + starPoint * starPoint * 150 + minusScore)
   if (totalScore !== lastScore) {
@@ -1205,15 +1233,21 @@ function createUrlParam() {
       }
     }
   }
-  let param = shapeParam
-  param += gomiParam
-  param += kumoParam
+  let paramF = shapeParam
+  paramF += gomiParam
+  paramF += kumoParam
+  // 初期図形数は3がデフォルトってことにする
+  let paramI = document.getElementById('initShapeNum').options[initShapeNum.selectedIndex].value
+  let paramAll = 'f=' + paramF
+  if (paramI != '3') {
+    paramAll += '&i=' + paramI
+  }
   let elm = document.getElementById('url')
   const url = window.location.href.replace(window.location.search, '').replace(window.location.hash, '')
-  elm.value = url + '?f=' + param
+  elm.value = url + '?' + paramAll
 }
 
-function parseParam(param) {
+function parseParamF(param) {
   const strToColorCode = {
     'r': 1,
     'y': 2,
@@ -1243,13 +1277,27 @@ function init() {
   editMode()
 
   const urlParams = new URLSearchParams(window.location.search)
-  const val = urlParams.get('f')
-  if (val) {
-    parseParam(val)
+  const valI = urlParams.get('i')
+  var initShapeNum = document.getElementById('initShapeNum')
+  console.log('valI:', valI)
+  if (valI) {
+    initShapeNum.options[valI].selected = true
+  } else {
+    initShapeNum.options[3].selected = true
+  }
+  initShapeNum.addEventListener('change', function(event) {
+    resetAllState()
+    initShapeNum.blur()
+  })
+  const valF = urlParams.get('f')
+  if (valF) {
+    parseParamF(valF)
+    updateDisp()
+    // パラメータで読んだ図形が新規役扱いになるので、もう1回読ませて既存役扱いにする
     updateDisp()
   }
-  
   var chara = document.getElementById('chara')
+  chara.options[0].selected = true
   chara.addEventListener('change', function(event) {
     resetAllState()
     chara.blur()
