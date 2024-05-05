@@ -2,8 +2,8 @@
 <html>
 <head>
 <title>ゆめいろユラムシミュレータ</title>
-<script type="text/javascript" src="yuram.js"></script>
-<link rel="stylesheet" href="yuram.css" type="text/css" />
+<script type="text/javascript" src="yuram.js?v=20231212"></script>
+<link rel="stylesheet" href="yuram.css?v=20231212" type="text/css" />
 
 </head>
 <body>
@@ -47,13 +47,22 @@
         </table>
       </div>
       <div id="charaDiv">
-        <label for="chara">ツモパターン</label>
+        <label class="optionLabel" for="chara">キャラクター</label>
         <select id="chara">
           <option value="normal">通常</option>
-          <option value="yuna">ユナ（未実装）</option>
+          <option value="noera">ノエラ</option>
+          <!--<option value="yuna">ユナ（未実装）</option>-->
           <option value="geela">ジーラ</option>
         </select>
       </div>
+      <div id="initShapeNumDiv"></div>
+      <label class="optionLabel" for="initShapeNum">初期図形数</label>
+      <select id="initShapeNum">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3" selected>3</option>
+      </select>
       <div id="yakuDiv">
         <div id="totalScore"></div>
         <div id="starPoint"></div>
@@ -68,7 +77,7 @@
         <p>
           Zキー: 左回転<br>
           Xキー: 右回転<br>
-          矢印←→: ツモを左右に移動<br>
+          矢印← →: ツモを左右に移動<br>
           矢印↑: ツモをドロップ<br>
           Rキー: リセット
         </p>
@@ -80,9 +89,8 @@
       </div>
       <div>
         <strong>注意：</strong><br>
-        ・図形数による得点は「(図形数 - 初期図形数) * 1000点」のため、<br>
-        　初期図形がないシミュレータでは対戦時より図形数での点数が高くなります。<br>
-        　初期図形3個については配置の一覧が分かれば実装する予定です。<br>
+        ・初期図形数の項目を設定してもフィールドに初期図形は配置しません。<br>
+        　点数計算時に、設定した図形数分の点数を引いて計算するだけの機能です。<br>
         ・コネクトシェイプは形状ごと、コネクトカラーは色ごとに役がつきます。<br>
         　シミュレータでは分かりやすさのため、役名の後ろに形状・色を表示しています。
       </div>
@@ -94,6 +102,72 @@
         作成者: <a href="https://twitter.com/rakikiki">@rakikiki (Twitter)</a>    
       </div>
     </div>
+  </div>
+  <div>
+    <h2>その他</h2>
+    <h3>点数計算について</h3>
+    <p>
+      以下の式で計算しています。
+    </p>
+    <p>
+      点数 = (作成した図形数 * 1000) + (☆の数の2乗 * 150) - 減点<br>
+    </p>
+    <h3>☆の数ごとの点数</h3>
+    <table id="scoreTable">
+      <thead>
+        <tr>
+          <th>☆</th><th>点数</th><th>☆</th><th>点数</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td><td>150</td><td>1.5</td><td>337</td>
+        </tr>
+        <tr>
+          <td>2</td><td>600</td><td>2.5</td><td>937</td>
+        </tr>
+        <tr>
+          <td>3</td><td>1350</td><td>3.5</td><td>1837</td>
+        </tr>
+        <tr>
+          <td>4</td><td>2400</td><td>4.5</td><td>3037</td>
+        </tr>
+        <tr>
+          <td>5</td><td>3750</td><td>5.5</td><td>4537</td>
+        </tr>
+        <tr>
+          <td>6</td><td>5400</td><td>6.5</td><td>6337</td>
+        </tr>
+        <tr>
+          <td>7</td><td>7350</td><td>7.5</td><td>8437</td>
+        </tr>
+        <tr>
+          <td>8</td><td>9600</td><td>8.5</td><td>10837</td>
+        </tr>
+        <tr>
+          <td>9</td><td>12150</td><td>9.5</td><td>13537</td>
+        </tr>
+        <tr>
+          <td>10</td><td>15000</td><td>10.5</td><td>16537</td>
+        </tr>
+        <tr>
+          <td>11</td><td>18150</td><td>11.5</td><td>19837</td>
+        </tr>
+        <tr>
+          <td>12</td><td>21600</td><td>12.5</td><td>23437</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h2>変更履歴</h2>
+  <div>
+    <pre>
+      2024/05/05
+      ・初期図形数を選択して、とりあえず点数から減らす機能を追加
+      ・新しく成立した役の背景色を変更して表示するようにした
+      2023/12/09
+      ・新規作成
+    </pre>
   </div>
 
 </body>
