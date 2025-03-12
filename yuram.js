@@ -1315,14 +1315,20 @@ function init() {
   // キー入力
   document.addEventListener("keydown", function(event) {
     if (event.key === "ArrowLeft") {
+      event.preventDefault()
       // ツモを左に動かす
       moveTumo("moveLeft")
     } else if (event.key === "ArrowRight") {
+      event.preventDefault()
       // ツモを右に動かす
       moveTumo("moveRight")
     } else if (event.key === "ArrowUp") {
+      event.preventDefault()
       // 落下させる
       fallTumo()
+    } else if (event.key === "ArrowDown"){
+      event.preventDefault()
+      // 何もしない
     } else if (event.key === "z") {
       // 左回転
       moveTumo("rotateLeft")
