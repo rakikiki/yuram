@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ゆめいろユラム初期図形</title>
+<script type="text/javascript" src="initialShape.js?v=20250918"></script>
+<script type="text/jacascript" src="yuram.js"></script>
+<link rel="stylesheet" href="yuram.css?v=20231212" type="text/css" />
+<style type="text/css">
+table.initShapeField {
+  border: 3px solid black;
+}
+table.initShapeField td {
+  width: 25px;
+  height: 25px;
+  border: 1px dotted gray;
+}
+table.initShapeField tr.middle td {
+  border-top: 1px solid black;
+}
+td.colorA {
+  background-color: orangered;
+}
+td.colorB {
+  background-color: green;
+}
+td.colorC {
+  background-color: aqua;
+}
+div.tableContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;
+}
+ul {
+  padding-left: 15px;
+}
+</style>
+<script>
+</script>
+</head>
+<body>
+<h1>ゆめいろユラム初期図形</h1>
+<h2>このページは？</h2>
+<p>
+ゆめいろユラムの対戦開始時に配置される初期図形のパターンを網羅したいページです。<br>
+以下のルールでAIさんに生成してもらいました。<br>
+<ul>
+    <li>高さ3以下に収まる</li>
+    <li>同じ形状の図形は2つまで</li>
+    <li>ブロックは浮かない</li>
+    <li>上下・左右反転は別パターンとして扱う</li>
+</ul>
+数が多いので内容をちゃんとは確認していません。無責任なページです。
+</p>
+<p>
+<h2>分類について</h2>
+初期図形が含む図形の形状によって分類しています。<br>
+例えば「Iが2つ、Lが1つ」で構成されている初期図形は、"IIL"に分類します。<br>
+これらの分類をアルファベット順 (I→L→O→S→T)に並べています。
+</p>
+<h2>注意</h2>
+<p>
+  <ul>
+  <li>不足しているパターンがあるかもしれません。</li>
+  <li>あくまで「それっぽいルール」で生成しているため、実際には出現しないパターンもあるかもしれません。</li>
+  <li>「同じ形状の図形を2つ含むパターン」について、図形の順番が異なるだけで、結果として同じになるパターンは除いています。<br>
+例：<br>
+AAAACC　　　BBBBCC<br>
+BBBBCC　　　AAAACC<br>
+ゲーム内でどのように初期図形が選択されているか分かりませんが、出現確率を考える場合は上記について注意が必要かもしれません。
+</li>
+</ul>
+</p>
+<div id="showDiv">
+</div>
+</body>
+</html>
