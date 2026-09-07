@@ -153,6 +153,8 @@ for (let i = 0; i < HEIGHT; i++) {
   }
   field.unshift(arr)
 }
+// 初期図形一時記憶
+let savedInitShape = ""
 
 // ツモパターンを生成する
 function createTumoPattern(pattern) {
@@ -1186,11 +1188,24 @@ function resetAllState() {
       }
     }
   }
+  // 初期図形記憶がある場合
+  if (savedInitShape && savedInitShape.length > 0) {
+    parseParamF(savedInitShape)
+    showSavedInitShape()
+  }
   const chara = document.getElementById('chara')
   const val = chara.options[chara.selectedIndex].value
   createTumoPattern(val)
   getTumo()
   updateDisp()
+}
+
+// 初期図形を記憶するボタン押下時イベント
+function saveInitShape() {
+  // URLパラメータ生成を呼ぶ→fのパラメータを変数に記憶する
+  const paramF = createParamF()
+  savedInitShape = paramF
+  showSavedInitShape()
 }
 
 function updateDisp() {
@@ -1199,8 +1214,8 @@ function updateDisp() {
   showScore()
 }
 
-// 現在の状態からURLパラメータを生成する
-function createUrlParam() {
+// URLパラメータの値を生成する
+function createParamF() {
   const colorCodeToStr = {
     1: 'r',
     2: 'y',
@@ -1236,6 +1251,12 @@ function createUrlParam() {
   let paramF = shapeParam
   paramF += gomiParam
   paramF += kumoParam
+  return paramF
+}
+
+// 現在の状態からURLパラメータを生成する
+function createUrlParam() {
+  paramF = createParamF()
   // 初期図形数は3がデフォルトってことにする
   let paramI = document.getElementById('initShapeNum').options[initShapeNum.selectedIndex].value
   let paramAll = 'f=' + paramF
@@ -1245,6 +1266,7 @@ function createUrlParam() {
   let elm = document.getElementById('url')
   const url = window.location.href.replace(window.location.search, '').replace(window.location.hash, '')
   elm.value = url + '?' + paramAll
+  return paramF
 }
 
 function parseParamF(param) {
@@ -1270,6 +1292,17 @@ function parseParamF(param) {
     // 配置したら図形判定
     createShape([parseInt(positions[0].substring(0, 1)), parseInt(positions[0].substring(1, 2))], null)
   }
+  updateDisp()
+}
+
+// 記憶した状態を画面に表示する
+function showSavedInitShape() {
+  const savedInitShapeSpan = document.getElementById('savedInitShapeSpan')
+  if (savedInitShape && savedInitShape.length > 0) {
+    savedInitShapeSpan.innerText = savedInitShape
+  } else {
+    savedInitShapeSpan.innerText = "なし"
+  }
 }
 
 function init() {
@@ -1291,11 +1324,12 @@ function init() {
   })
   const valF = urlParams.get('f')
   if (valF) {
+    savedInitShape = valF
     parseParamF(valF)
-    updateDisp()
     // パラメータで読んだ図形が新規役扱いになるので、もう1回読ませて既存役扱いにする
     updateDisp()
   }
+  showSavedInitShape()
   var chara = document.getElementById('chara')
   chara.options[0].selected = true
   chara.addEventListener('change', function(event) {
@@ -1303,9 +1337,20 @@ function init() {
     chara.blur()
   })
 
-  var outUrlButton = document.getElementById('outUrlButton')
+  // URL出力ボタン押下
+  const outUrlButton = document.getElementById('outUrlButton')
   outUrlButton.addEventListener('click', function(event) {
     createUrlParam()
+  })
+  // リセットボタン押下
+  const resetButton = document.getElementById('resetButton')
+  resetButton.addEventListener('click', function(event) {
+    resetAllState()
+  })
+  // 初期図形として記憶するボタン押下
+  const saveInitShapeButton = document.getElementById('saveInitShapeButton')
+  saveInitShapeButton.addEventListener('click', function(event) {
+    saveInitShape()
   })
   var urlInput = document.getElementById('url')
   urlInput.addEventListener('click', function(event) {
